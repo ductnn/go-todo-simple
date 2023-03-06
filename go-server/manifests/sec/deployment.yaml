@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-todo-server
+  namespace: go-todo-sec
+spec:
+  selector:
+    matchLabels:
+      app: go-todo-server
+  template:
+    metadata:
+      labels:
+        app: go-todo-server
+    spec:
+      containers:
+      - name: go-todo-server
+        image: ductn4/go-todo-server:v2
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsUser: 0
+          readOnlyRootFilesystem: true
+          runAsNonRoot: false
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: "RuntimeDefault"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080

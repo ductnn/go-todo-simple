@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-todo-client
+  namespace: go-todo
+spec:
+  selector:
+    matchLabels:
+      app: go-todo-client
+  template:
+    metadata:
+      labels:
+        app: go-todo-client
+    spec:
+      containers:
+      - name: go-todo-client
+        image: ductn4/go-todo-client:v1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000

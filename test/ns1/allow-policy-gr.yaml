@@ -1,0 +1,14 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: access-green-rain-1
+  namespace: n1
+spec:
+  podSelector:
+    matchLabels:
+      app: green-rain
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: sleep
